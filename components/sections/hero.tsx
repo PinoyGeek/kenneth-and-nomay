@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo } from "react"
 import { motion } from "motion/react"
 import { Cormorant_Garamond, Cinzel } from "next/font/google"
 import { siteConfig } from "@/content/site"
-import { getCloudinaryUrl } from "@/lib/cloudinary"
+import Image from "next/image"
 
 const desktopImages: string[] = [
   '/desktop-background/couple (6).webp',
@@ -12,7 +12,7 @@ const desktopImages: string[] = [
   '/desktop-background/couple (8).webp',
   '/desktop-background/couple (9).webp',
   '/desktop-background/couple (10).webp',
-].map((src) => getCloudinaryUrl(src, { width: 1920, quality: "auto" }))
+]
 
 const mobileImages: string[] = [
   '/mobile-background/couple (6).webp',
@@ -20,7 +20,7 @@ const mobileImages: string[] = [
   '/mobile-background/couple (8).webp',
   '/mobile-background/couple (9).webp',
   '/mobile-background/couple (10).webp',
-].map((src) => getCloudinaryUrl(src, { width: 768, quality: "auto" }))
+]
 
 const SHOW_BUTTERFLIES = false
 
@@ -71,7 +71,7 @@ export function Hero() {
     setCurrentImageIndex(0)
     
     // Load first image with priority to show it immediately
-    const firstImg = new Image()
+    const firstImg = new window.Image()
     firstImg.src = backgroundImages[0]
     firstImg.onload = () => {
       setImagesLoaded(true) // Show first image immediately
@@ -81,7 +81,7 @@ export function Hero() {
     setTimeout(() => {
       if (typeof navigator !== 'undefined' && (navigator as any).connection?.saveData) return
       backgroundImages.slice(1, 3).forEach((src) => {
-        const img = new Image()
+        const img = new window.Image()
         img.decoding = 'async'
         img.loading = 'lazy' as any
         img.src = src
